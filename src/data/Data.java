@@ -2,6 +2,8 @@ package data;
 
 import data.Attribute;
 
+import java.util.*;
+
 //modella l'insieme di transazioni (tuple)
 public class Data {
 
@@ -18,7 +20,7 @@ public class Data {
     /**
      * vettore degli attributi in ciascuna tupla (schema della tabella di dati)
      */
-    private Attribute explanatorySet[];
+    private List<Attribute> explanatorySet;
 
     /**
      * - Inizializza la matrice data [ ][ ] con transazioni di esempio
@@ -28,122 +30,121 @@ public class Data {
      */
     public Data()throws EmptyDatasetException{
 
-        explanatorySet = new Attribute[5];
+        explanatorySet = new LinkedList<Attribute>();
 
-        String outLookValues[] = new String[3];
-        outLookValues[0]="overcast";
-        outLookValues[1]="rain";
-        outLookValues[2]="sunny";
-        explanatorySet[0] = new DiscreteAttribute("Outlook",0, outLookValues);
+        Set<String> outLookValues = new TreeSet<String>();
+        outLookValues.add("overcast");
+        outLookValues.add("rain");
+        outLookValues.add("sunny");
+        explanatorySet.add(new DiscreteAttribute("Outlook", 0, outLookValues));
 
-        String temperatureValues[] = new String[3];
-        temperatureValues[0]="hot";
-        temperatureValues[1]="mild";
-        temperatureValues[2]="cool";
-        explanatorySet[1] = new DiscreteAttribute("Temperature", 1, temperatureValues);
+        Set<String> temperatureValues = new TreeSet<String>();
+        temperatureValues.add("hot");
+        temperatureValues.add("mild");
+        temperatureValues.add("cool");
+        explanatorySet.add(new DiscreteAttribute("Temperature", 1, temperatureValues));
 
-        String humidityValues[] = new String[2];
-        humidityValues[0]="high";
-        humidityValues[1]="normal";
-        explanatorySet[2] = new DiscreteAttribute("Humidity", 2, humidityValues);
+        Set<String> humidityValues = new TreeSet<String>();
+        humidityValues.add("high");
+        humidityValues.add("normal");
+        explanatorySet.add(new DiscreteAttribute("Humidity", 2, humidityValues));
 
-        String windValues[] = new String[2];
-        windValues[0]="weak";
-        windValues[1]="strong";
-        explanatorySet[3] = new DiscreteAttribute("Wind",3, windValues);
+        Set<String> windValues = new TreeSet<String>();
+        windValues.add("weak");
+        windValues.add("strong");
+        explanatorySet.add(new DiscreteAttribute("Wind", 3, windValues));
 
-        String playTennisValues[]=new String[2];
-        playTennisValues[0]="yes";
-        playTennisValues[1]="no";
-        explanatorySet[4] = new DiscreteAttribute("PlayTennis",4, playTennisValues);
+        Set<String> playTennisValues = new TreeSet<String>();
+        playTennisValues.add("yes");
+        playTennisValues.add("no");
+        explanatorySet.add(new DiscreteAttribute("PlayTennis", 4, playTennisValues));
 
         numberOfExamples = 14;
         data = new Object [14][5];
 
-        //primo esempio
-        data[0][0]=((DiscreteAttribute)explanatorySet[0]).getAttributeValue(2);
-        data[0][1]=((DiscreteAttribute)explanatorySet[1]).getAttributeValue(0);
-        data[0][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(0);
-        data[0][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(0);
-        data[0][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(1);
+        data[0][0]="sunny";
+        data[0][1]="hot";
+        data[0][2]="high";
+        data[0][3]="weak";
+        data[0][4]="no";
         //secondo esempio
-        data[1][0]=((DiscreteAttribute)explanatorySet[0]).getAttributeValue(2);
-        data[1][1]=((DiscreteAttribute)explanatorySet[1]).getAttributeValue(0);
-        data[1][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(0);
-        data[1][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(1);
-        data[1][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(1);
+        data[1][0]="sunny";
+        data[1][1]="hot";
+        data[1][2]="high";
+        data[1][3]="strong";
+        data[1][4]="no";
         //terzo esempio
-        data[2][0]=((DiscreteAttribute)explanatorySet[0]).getAttributeValue(0);
-        data[2][1]=((DiscreteAttribute)explanatorySet[1]).getAttributeValue(0);
-        data[2][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(0);
-        data[2][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(0);
-        data[2][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(0);
+        data[2][0]="overcast";
+        data[2][1]="hot";
+        data[2][2]="high";
+        data[2][3]="weak";
+        data[2][4]="yes";
         //quarto esempio
-        data[3][0]=((DiscreteAttribute)explanatorySet[0]).getAttributeValue(1);
-        data[3][1]=((DiscreteAttribute)explanatorySet[1]).getAttributeValue(1);
-        data[3][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(0);
-        data[3][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(0);
-        data[3][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(0);
+        data[3][0]="rain";
+        data[3][1]="mild";
+        data[3][2]="high";
+        data[3][3]="weak";
+        data[3][4]="yes";
         //quinto esempio
-        data[4][0]=((DiscreteAttribute)explanatorySet[0]).getAttributeValue(1);
-        data[4][1]=((DiscreteAttribute)explanatorySet[1]).getAttributeValue(2);
-        data[4][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(1);
-        data[4][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(0);
-        data[4][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(0);
+        data[4][0]="rain";
+        data[4][1]="cool";
+        data[4][2]="normal";
+        data[4][3]="weak";
+        data[4][4]="yes";
         //sesto esempio
-        data[5][0]=((DiscreteAttribute)explanatorySet[0]).getAttributeValue(1);
-        data[5][1]=((DiscreteAttribute)explanatorySet[1]).getAttributeValue(2);
-        data[5][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(1);
-        data[5][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(1);
-        data[5][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(1);
+        data[5][0]="rain";
+        data[5][1]="cool";
+        data[5][2]="normal";
+        data[5][3]="strong";
+        data[5][4]="no";
         //settimo esempio
-        data[6][0]=((DiscreteAttribute)explanatorySet[0]).getAttributeValue(0);
-        data[6][1]=((DiscreteAttribute)explanatorySet[1]).getAttributeValue(2);
-        data[6][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(1);
-        data[6][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(1);
-        data[6][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(0);
+        data[6][0]="overcast";
+        data[6][1]="cool";
+        data[6][2]="normal";
+        data[6][3]="strong";
+        data[6][4]="yes";
         //otavo esempio
-        data[7][0]=((DiscreteAttribute)explanatorySet[0]).getAttributeValue(2);
-        data[7][1]=((DiscreteAttribute)explanatorySet[1]).getAttributeValue(1);
-        data[7][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(0);
-        data[7][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(0);
-        data[7][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(1);
+        data[7][0]="sunny";
+        data[7][1]="mild";
+        data[7][2]="high";
+        data[7][3]="weak";
+        data[7][4]="no";
         //nono esempio
-        data[8][0]=((DiscreteAttribute)explanatorySet[0]).getAttributeValue(2);
-        data[8][1]=((DiscreteAttribute)explanatorySet[1]).getAttributeValue(2);
-        data[8][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(1);
-        data[8][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(0);
-        data[8][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(0);
+        data[8][0]="sunny";
+        data[8][1]="cool";
+        data[8][2]="normal";
+        data[8][3]="weak";
+        data[8][4]="yes";
         //decimo esempio
-        data[9][0]=((DiscreteAttribute)explanatorySet[0]).getAttributeValue(1);
-        data[9][1]=((DiscreteAttribute)explanatorySet[1]).getAttributeValue(1);
-        data[9][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(1);
-        data[9][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(0);
-        data[9][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(0);
+        data[9][0]="rain";
+        data[9][1]="mild";
+        data[9][2]="normal";
+        data[9][3]="weak";
+        data[9][4]="yes";
         //undicesimo esempio
-        data[10][0]=((DiscreteAttribute)explanatorySet[0]).getAttributeValue(2);
-        data[10][1]=((DiscreteAttribute)explanatorySet[1]).getAttributeValue(1);
-        data[10][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(1);
-        data[10][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(1);
-        data[10][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(0);
+        data[10][0]="sunny";
+        data[10][1]="mild";
+        data[10][2]="normal";
+        data[10][3]="strong";
+        data[10][4]="yes";
         //dodicesimo esempio
-        data[11][0]=((DiscreteAttribute)explanatorySet[0]).getAttributeValue(0);
-        data[11][1]=((DiscreteAttribute)explanatorySet[1]).getAttributeValue(1);
-        data[11][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(0);
-        data[11][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(1);
-        data[11][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(0);
+        data[11][0]="overcast";
+        data[11][1]="mild";
+        data[11][2]="high";
+        data[11][3]="strong";
+        data[11][4]="yes";
         //tredicesimo esempio
-        data[12][0]=((DiscreteAttribute)explanatorySet[0]).getAttributeValue(0);
-        data[12][1]=((DiscreteAttribute)explanatorySet[1]).getAttributeValue(0);
-        data[12][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(1);
-        data[12][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(0);
-        data[12][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(0);
+        data[12][0]="overcast";
+        data[12][1]="hot";
+        data[12][2]="normal";
+        data[12][3]="weak";
+        data[12][4]="yes";
         //quatordicesimo esempio
-        data[13][0]=((DiscreteAttribute)explanatorySet[0]).getAttributeValue(1);
-        data[13][1]=((DiscreteAttribute)explanatorySet[1]).getAttributeValue(1);
-        data[13][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(0);
-        data[13][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(1);
-        data[13][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(1);
+        data[13][0]="rain";
+        data[13][1]="mild";
+        data[13][2]="high";
+        data[13][3]="strong";
+        data[13][4]="no";
         if (getNumberOfExamples() == 0)
             throw new EmptyDatasetException();
 
@@ -162,14 +163,14 @@ public class Data {
      * @return cardinalità dell'insieme degli attributi
      */
     public int getNumberOfExplanatoryAttributes(){
-        return explanatorySet.length;
+        return explanatorySet.size();
     }
 
     /**
      * restituisce explanatorySet
      * @return explanatorySet
      */
-    Attribute[] getAttributeSchema(){
+    List<Attribute> getAttributeSchema(){
         return explanatorySet;
     }
 
@@ -193,26 +194,16 @@ public class Data {
     @Override
     public String toString() {
         String s = "";
-        for(int i = 0; i < explanatorySet.length; i++)
+        int n = 1;
+        for(Attribute i : explanatorySet)
+            s += ((n++)!=1 ? ", " : "") + i;
+        for(int i=0; i<data.length; i++)
         {
-            if(i != 0)
-                s = s + ", ";
-            s = s + explanatorySet[i];
+            s += "\n" + (i+1)+": ";
+            for(int j=0; j<data[i].length; j++)
+                s += (j!=0 ? ", " : "") + data[i][j];
         }
-        s = s + "\n";
-        for(int i = 0; i < data.length; i++)
-        {
-            if(i != 0)
-                s = s + "\n";
-            s = s + (i + 1) + ": ";
-            for(int j = 0; j < data[i].length; j++)
-            {
-                if(j != 0)
-                    s = s + ", ";
-                s = s + data[i][j];
-            }
-        }
-        return s;
+        return s+"\n";
     }
 
     /**
@@ -222,10 +213,9 @@ public class Data {
      * @return tuple
      */
     public Tuple getItemSet(int index){
-        Tuple tuple=new Tuple(explanatorySet.length);
-        for(int i=0;i<explanatorySet.length;i++)
-            tuple.add(new DiscreteItem(explanatorySet[i], (String)data[index][i]),i);
+        Tuple tuple=new Tuple(explanatorySet.size());
+        for(Attribute i : explanatorySet)
+            tuple.add(new DiscreteItem((DiscreteAttribute)i,(String)data[index][i.getIndex()]),i.getIndex());
         return tuple;
-
     }
 }

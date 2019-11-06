@@ -1,6 +1,7 @@
 package data;
 
-import data.Attribute;
+import java.util.Iterator;
+import java.util.Set;
 
 //classe concreta che modella un attributo discreto (numerico)
 public class DiscreteAttribute extends Attribute {
@@ -9,7 +10,7 @@ public class DiscreteAttribute extends Attribute {
      * array di oggetti String, uno per ciascun valore del dominio discreto.
      * I valori del dominio sono memorizzati in values seguendo un ordine lessicografico
      */
-    String values[ ];
+    Set<String> values;
 
     /**
      * Invoca il costruttore della classe madre e inizializza il membro values con il parametro in input
@@ -17,7 +18,7 @@ public class DiscreteAttribute extends Attribute {
      * @param index indice numerico dell'attributo
      * @param values array di stringhe rappresentanti il dominio dell'attributo
      */
-    public DiscreteAttribute(String name, int index, String[] values) {
+    public DiscreteAttribute(String name, int index, Set<String> values) {
         super(name, index);
         this.values = values;
     }
@@ -27,15 +28,10 @@ public class DiscreteAttribute extends Attribute {
      * @return numero di valori discreti nel dominio dell'attributo
      */
     int getNumberOfDistinctValues(){
-        return values.length;
+        return values.size();
     }
 
-    /**
-     * restituisce value[i]
-     * @param i posizione di un valore in values
-     * @return valore discreto in posizione i di values
-     */
-    String getAttributeValue(int i){
-        return values[i];
+    public Iterator<String> iterator(){
+        return values.iterator();
     }
 }

@@ -26,7 +26,7 @@ public class Data {
      *   data.DiscreteAttribute, uno per ciascun attributo
      * - Inizializza numberOfExamples
      */
-    public Data(){
+    public Data()throws EmptyDatasetException{
 
         explanatorySet = new Attribute[5];
 
@@ -144,6 +144,8 @@ public class Data {
         data[13][2]=((DiscreteAttribute)explanatorySet[2]).getAttributeValue(0);
         data[13][3]=((DiscreteAttribute)explanatorySet[3]).getAttributeValue(1);
         data[13][4]=((DiscreteAttribute)explanatorySet[4]).getAttributeValue(1);
+        if (getNumberOfExamples() == 0)
+            throw new EmptyDatasetException();
 
     }
 

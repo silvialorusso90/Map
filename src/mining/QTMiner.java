@@ -6,6 +6,7 @@ import data.Data;
 import mining.Cluster;
 import mining.ClusterSet;
 
+
 public class QTMiner {
 
     //Attributi
@@ -51,7 +52,7 @@ public class QTMiner {
      * @param data insieme di tuple
      * @return numero di cluster scoperti
      */
-    public int compute(Data data){
+    public int compute(Data data) throws ClusteringRadiusException{
         int numclusters = 0;
         boolean isClustered[] = new boolean[data.getNumberOfExamples()];
         for(int i = 0; i < isClustered.length; i++)

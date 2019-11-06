@@ -1,4 +1,6 @@
-import java.util.Arrays;
+package data;
+
+import data.Attribute;
 
 //modella l'insieme di transazioni (tuple)
 public class Data {
@@ -21,10 +23,10 @@ public class Data {
     /**
      * - Inizializza la matrice data [ ][ ] con transazioni di esempio
      * - Inizializza explanatorySet creando cinque oggetti di tipo
-     *   DiscreteAttribute, uno per ciascun attributo
+     *   data.DiscreteAttribute, uno per ciascun attributo
      * - Inizializza numberOfExamples
      */
-    Data(){
+    public Data(){
 
         explanatorySet = new Attribute[5];
 
@@ -149,7 +151,7 @@ public class Data {
      * restituisce l'insieme di transazioni
      * @return numberOfExamples
      */
-    int getNumberOfExamples(){
+    public int getNumberOfExamples(){
         return numberOfExamples;
     }
 
@@ -157,7 +159,7 @@ public class Data {
      * restituisce la dimensione di explanatorySet
      * @return cardinalità dell'insieme degli attributi
      */
-    int getNumberOfExplanatoryAttributes(){
+    public int getNumberOfExplanatoryAttributes(){
         return explanatorySet.length;
     }
 
@@ -176,7 +178,7 @@ public class Data {
      * @param attributeIndex indice di colonna della matrice memorizzata in data
      * @return data[exampleIndex][attributeIndex]
      */
-    Object getAttributeValue(int exampleIndex, int attributeIndex){
+    public Object getAttributeValue(int exampleIndex, int attributeIndex){
         //TO DO
         return data[exampleIndex][attributeIndex];
     }
@@ -212,12 +214,12 @@ public class Data {
     }
 
     /**
-     * Crea e restituisce un oggetto di Tuple che modella come sequenza di coppie
+     * Crea e restituisce un oggetto di data.Tuple che modella come sequenza di coppie
      * Attributo-valore la i-esima riga in data
      * @param index indice di riga
      * @return tuple
      */
-    Tuple getItemSet(int index){
+    public Tuple getItemSet(int index){
         Tuple tuple=new Tuple(explanatorySet.length);
         for(int i=0;i<explanatorySet.length;i++)
             tuple.add(new DiscreteItem(explanatorySet[i], (String)data[index][i]),i);

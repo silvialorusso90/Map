@@ -1,4 +1,4 @@
-/*
+package data;/*
 classe che rappresenta una tupla come sequenza di coppie attributo-valore
  */
 
@@ -7,7 +7,7 @@ public class Tuple {
     //Attributi
 
     /**
-     * array di oggetti di tipo Item, uno per ciascun attributo della tupla
+     * array di oggetti di tipo data.Item, uno per ciascun attributo della tupla
      * */
     private Item [ ] tuple;
 
@@ -25,23 +25,23 @@ public class Tuple {
      * restituisce tuple.length
      * @return lunghezza della tupla
      */
-    int getLength(){
+    public int getLength(){
         return tuple.length;
     }
 
     /**
      * restituisce l'item in posizione i
-     * @param i posiizione di un Item in Tuple
-     * @return Item in posizione i di Tuple
+     * @param i posiizione di un data.Item in data.Tuple
+     * @return data.Item in posizione i di data.Tuple
      */
-    Item get(int i){
+    public Item get(int i){
         return tuple[i];
     }
 
     /**
      * memorizza c in tuple[i]
-     * @param c Item da assegnare in posizione i di tuple
-     * @param i posizione di un Item in tuple
+     * @param c data.Item da assegnare in posizione i di tuple
+     * @param i posizione di un data.Item in tuple
      */
     void add(Item c,int i){
         tuple[i] = c;
@@ -51,11 +51,11 @@ public class Tuple {
      * determina la distanza tra la tupla riferita da obj e la tupla corrente
      * (riferita da this). La distanza è ottenuta come la somma delle distanze
      * tra gli item in posizioni eguali nelle due tuple.
-     * Fare uso di double distance(Object a) di Item
+     * Fare uso di double distance(Object a) di data.Item
      * @param obj tupla per cui si vuole calcolare la distanza dalla tupla corrente
      * @return distanza tra la tupla obj e la tupla corrente
      */
-    double getDistance(Tuple obj){
+    public double getDistance(Tuple obj){
         double distance = 0;
         for (int i = 0; i < this.getLength(); i++)
             distance = distance + this.get(i).distance(obj.get(i));
@@ -70,7 +70,7 @@ public class Tuple {
      * @return distanza media tra la tupla corrente e le tuple in data aventi indice
      * in clusterData
      */
-    double avgDistance(Data data, int clusteredData[]){
+    public double avgDistance(Data data, int clusteredData[]){
         double p = 0.0;
         double sumD = 0.0;
         for(int i = 0; i < clusteredData.length; i++){

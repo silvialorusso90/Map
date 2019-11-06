@@ -1,6 +1,8 @@
-/*
+package data;/*
 classe astratta che modella un generico item (coppia attributo-valore, per esempio Outlook=”Sunny”).
  */
+
+import data.Attribute;
 
 abstract class Item {
 

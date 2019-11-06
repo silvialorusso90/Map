@@ -1,7 +1,12 @@
+package mining;
+
+import data.Data;
+import mining.Cluster;
+
 /*
 classe che rappresenta un insieme di cluster (determinati da QT)
  */
-class ClusterSet {
+public class ClusterSet {
 
     //Attributi
 

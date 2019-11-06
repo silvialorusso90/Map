@@ -1,10 +1,10 @@
-/*
+package utility;/*
 classe che modella il dato astratto insieme di interi e ne fornisce una realizzazione
 basata su vettore di booleani
  */
 import java.util.Arrays;
 
-class ArraySet {
+public class ArraySet {
 
     //Attributi
 
@@ -20,7 +20,7 @@ class ArraySet {
     private int size = 0;
 
     /**
-     * cardinalità dell'ArraySet
+     * cardinalità dell'utility.ArraySet
      */
     private int cardinality = 0;
 
@@ -30,18 +30,18 @@ class ArraySet {
     /**
      * crea un array di 50 booleani inizializzati a false
      */
-    ArraySet (){
+    public ArraySet(){
         set = new boolean[50];
         for(int i = 0; i < set.length; i++)
             set[i] = false;
     }
 
     /**
-     * restituisce true se l'aggiunta cambia l'ArraySet
-     * @param i indice dell'elemento nell'ArraySet
-     * @return true se l'aggiunta cambia l'ArraySet
+     * restituisce true se l'aggiunta cambia l'utility.ArraySet
+     * @param i indice dell'elemento nell'utility.ArraySet
+     * @return true se l'aggiunta cambia l'utility.ArraySet
      */
-    boolean add(int i){
+    public boolean add(int i){
         if(i >= set.length) {
             //enlarge the set
             boolean temp[] = new boolean[set.length * 2];
@@ -63,7 +63,7 @@ class ArraySet {
      * @param i
      * @return
      */
-    boolean delete(int i){
+    public boolean delete(int i){
         if(i < size){
             boolean deleted = set[i];
             set[i] = false;
@@ -85,7 +85,7 @@ class ArraySet {
      * @param i
      * @return
      */
-    boolean get(int i){
+    public boolean get(int i){
         return set[i];
     }
 
@@ -93,7 +93,7 @@ class ArraySet {
      *
      * @return
      */
-    int size (){
+    public int size(){
         return cardinality;
     }
 
@@ -101,7 +101,7 @@ class ArraySet {
      *
      * @return
      */
-    int[] toArray(){
+    public int[] toArray(){
         int a[] = new int[0];
         for(int i = 0; i < size; i++){
             if(get(i)){

@@ -1,3 +1,7 @@
+package data;
+
+import data.Attribute;
+
 //classe concreta che modella un attributo continuo (numerico)
 public class ContinuousAttribute extends Attribute {
 

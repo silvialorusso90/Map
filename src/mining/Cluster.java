@@ -1,6 +1,11 @@
-/*
+package mining;/*
 classe che modella un cluster
  */
+
+import data.Data;
+import data.Tuple;
+import utility.ArraySet;
+
 
 class Cluster {
 

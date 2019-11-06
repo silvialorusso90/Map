@@ -1,6 +1,10 @@
-/*
+package mining;/*
 classe che include l'implementazione dell'algoritmo QT
  */
+
+import data.Data;
+import mining.Cluster;
+import mining.ClusterSet;
 
 public class QTMiner {
 
@@ -23,7 +27,7 @@ public class QTMiner {
      * con il parametro passato come input
      * @param radius raggio del cluster
      */
-    QTMiner(double radius) {
+    public QTMiner(double radius) {
         C = new ClusterSet();
         this.radius = radius;
     }
@@ -47,7 +51,7 @@ public class QTMiner {
      * @param data insieme di tuple
      * @return numero di cluster scoperti
      */
-    int compute(Data data){
+    public int compute(Data data){
         int numclusters = 0;
         boolean isClustered[] = new boolean[data.getNumberOfExamples()];
         for(int i = 0; i < isClustered.length; i++)

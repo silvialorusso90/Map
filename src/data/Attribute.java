@@ -1,3 +1,5 @@
+package data;
+
 //classe astratta che modella l'entità attributo
 public abstract class Attribute {
 
@@ -43,7 +45,7 @@ public abstract class Attribute {
      */
     @Override
     public String toString() {
-        return "Attribute {" +
+        return "data.Attribute {" +
                 "name = '" + name + '\'' +
                 '}';
     }

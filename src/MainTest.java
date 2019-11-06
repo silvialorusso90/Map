@@ -1,3 +1,6 @@
+import data.Data;
+import mining.QTMiner;
+
 public class MainTest {
     /**
      * consenta il test delle classi implementate, in particolare

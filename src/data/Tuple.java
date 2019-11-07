@@ -2,6 +2,8 @@ package data;/*
 classe che rappresenta una tupla come sequenza di coppie attributo-valore
  */
 
+import java.util.Set;
+
 public class Tuple {
 
     //Attributi
@@ -70,14 +72,14 @@ public class Tuple {
      * @return distanza media tra la tupla corrente e le tuple in data aventi indice
      * in clusterData
      */
-    public double avgDistance(Data data, int clusteredData[]){
+    public double avgDistance(Data data, Set<Integer> clusteredData){
         double p = 0.0;
         double sumD = 0.0;
-        for(int i = 0; i < clusteredData.length; i++){
-            double d= getDistance(data.getItemSet(clusteredData[i]));
+        for(Integer i: clusteredData){
+            double d= getDistance(data.getItemSet(i));
             sumD += d;
         }
-        p = sumD / clusteredData.length;
+        p = sumD / clusteredData.size();
         return p;
     }
 

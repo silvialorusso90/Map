@@ -191,9 +191,8 @@ public class Data {
      * le transazioni memorizzate in data, opportunamente enumerate
      * @return stringa che modella lo stato dell'oggetto
      */
-    @Override
-    public String toString() {
-        String s = "";
+    public String toString(){
+        String s="";
         int n = 1;
         for(Attribute i : explanatorySet)
             s += ((n++)!=1 ? ", " : "") + i;
@@ -218,4 +217,14 @@ public class Data {
             tuple.add(new DiscreteItem((DiscreteAttribute)i,(String)data[index][i.getIndex()]),i.getIndex());
         return tuple;
     }
+
+    /**
+     * consenta il test delle classi implementate, in particolare
+     * permette la stampa dell'insieme di transazioni.
+     * @param args parametri del main
+     */
+	/*public static void main(String args[]){
+		Data trainingSet=new Data();
+		System.out.println(trainingSet);
+	}*/
 }

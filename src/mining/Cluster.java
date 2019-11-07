@@ -1,13 +1,18 @@
-package mining;/*
+package mining;
+/*
 classe che modella un cluster
  */
 
 import data.Data;
 import data.Tuple;
-import utility.ArraySet;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 
-class Cluster {
+class Cluster implements Iterable<Integer>, Comparable<Cluster> {
 
     //Attributi
 
@@ -20,7 +25,7 @@ class Cluster {
      * array di tuple clusterizzate, l'elemento i-esimo dell'array
      * vale true se se l'i-esima tupla appartiene al cluster
      */
-    private ArraySet clusteredData;
+    private Set<Integer> clusteredData;
 
 
     //Metodi
@@ -31,9 +36,8 @@ class Cluster {
      */
     Cluster(Tuple centroid){
         this.centroid = centroid;
-        clusteredData = new ArraySet();
-
-    }
+        clusteredData = new HashSet<Integer>();
+    };
 
     /**
      * restituisce il centroide del cluster
@@ -59,7 +63,7 @@ class Cluster {
      * @return true se la tupla appartiene all'array corrente, false altrimenti
      */
     boolean contain(int id){
-        return clusteredData.get(id);
+        return clusteredData.contains(id);
     }
 
     /**
@@ -67,7 +71,7 @@ class Cluster {
      * @param id identificatore numerico della tupla
      */
     void removeTuple(int id){
-        clusteredData.delete(id);
+        clusteredData.remove(id);
 
     }
 
@@ -83,8 +87,8 @@ class Cluster {
      *
      * @return
      */
-    int[] iterator(){
-        return clusteredData.toArray();
+    public Iterator<Integer> iterator(){
+        return clusteredData.iterator();
     }
 
     /**
@@ -104,19 +108,24 @@ class Cluster {
      * appartenenti al cluster e la distanza media delle tuple dal centroide
      * @return stringa rappresentante lo stato del cluster
      */
-    public String toString(Data data){
-        String str = "Centroid = (";
-        for(int i = 0; i < centroid.getLength(); i++)
-            str += centroid.get(i) + " ";
-        str += ")\nExamples:\n";
-        int array[] = clusteredData.toArray();
-        for(int i = 0; i < array.length; i++){
-            str += "[";
-            for(int j = 0; j < data.getNumberOfExplanatoryAttributes(); j++)
-                str += data.getAttributeValue(array[i], j) + " ";
-            str += "]  dist = " + getCentroid().getDistance(data.getItemSet(array[i])) + "\n";
+    String toString(Data data){
+        String str="Centroid=(";
+        for(int i=0;i<centroid.getLength();i++)
+            str += (i!=0 ? " " : "") + centroid.get(i);
+        str+=")\nExamples:\n";
+        for(Integer i : clusteredData){
+            str+="[";
+            for(int j=0;j<data.getNumberOfExplanatoryAttributes();j++)
+                str += (j!=0 ? " " : "") + data.getAttributeValue(i, j);
+            str+="] dist="+getCentroid().getDistance(data.getItemSet(i))+"\n";
         }
-        str += "AvgDistance = " + getCentroid().avgDistance(data, array) + "\n";
-        return str;
+        return str+"\nAvgDistance="+getCentroid().avgDistance(data, clusteredData)+"\n";
+    }
+
+    @Override
+    public int compareTo(Cluster c) {
+        if(this.clusteredData.size()>c.clusteredData.size())
+            return 1;
+        return -1;
     }
 }

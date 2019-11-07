@@ -64,12 +64,13 @@ public class QTMiner {
             C.add(c);
             numclusters++;
             //Rimuovo tuple clusterizzate da dataset
-            int clusteredTupleId[] = c.iterator();
-            for(int i = 0; i < clusteredTupleId.length; i++) {
-                isClustered[clusteredTupleId[i]] = true;
-            }
+            //int clusteredTupleId[] = c.iterator();
+            for(Integer i : c)
+                isClustered[i] = true;
             countClustered += c.getSize();
         }
+        if(numclusters == 1)
+            throw new ClusteringRadiusException();
         return numclusters;
     }
 

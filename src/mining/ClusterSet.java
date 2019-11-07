@@ -3,17 +3,21 @@ package mining;
 import data.Data;
 import mining.Cluster;
 
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
+
 /*
 classe che rappresenta un insieme di cluster (determinati da QT)
  */
-public class ClusterSet {
+public class ClusterSet implements Iterable<Cluster>{
 
     //Attributi
 
     /**
      * array di oggetti cluster
      */
-    private Cluster C[] = new Cluster[0];
+    private Set<Cluster> C=new TreeSet<Cluster>();
 
     //Metodi
 
@@ -28,31 +32,41 @@ public class ClusterSet {
      * @param c cluster da aggiungere all'insieme di cluster
      */
     void add(Cluster c){
-        Cluster tempC[] = new Cluster[C.length + 1];
-        for(int i = 0; i < C.length; i++)
-            tempC[i] = C[i];
-        tempC[C.length] = c;
+        Set<Cluster> tempC = new TreeSet<Cluster>();
+        for(Cluster i: C)
+            tempC.add(i);
+        tempC.add(c);
         C = tempC;
     }
 
     /**
-     * restituisce C[i]
-     * @param i indice del cluster alla posizione i dell'insieme di cluster
-     * @return cluster alla posizione i dell'insieme di cluster
+     * Restituisce una stringa fatta da ciascun centroide dellíinsieme dei cluster.
+     * @return stringa rappresentante i centroidi di ogni cluster appartenente all'insieme di cluster
      */
-    Cluster get(int i){
-        return C[i];
+    public String toString(){
+        String str="";
+        int n = 1;
+        for(Cluster i : C)
+            str+=(n++)+": "+i.toString()+"\n";
+        return str;
     }
 
-    public String toString(Data data ){
-        String str = "";
-        for(int i = 0; i < C.length; i++){
-            if (C[i] != null){
-                str += i + ":" + C[i].toString(data) + "\n";
+    /**Restituisce una stringa che descriva lo stato di ciascun cluster in C.
+     * @return stringa rappresentante lo stato di ogni cluster dell'insieme di cluster
+     */
+    public String toString(Data data){
+        String str="";
+        int n = 1;
+        for(Cluster i : C){
+            if (i!=null){
+                str+=(n++)+": "+i.toString(data)+"\n";
             }
         }
         return str;
     }
 
-
+    @Override
+    public Iterator<Cluster> iterator() {
+        return C.iterator();
+    }
 }

@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 //classe concreta che modella un attributo discreto (numerico)
-public class DiscreteAttribute extends Attribute {
+public class DiscreteAttribute extends Attribute implements Iterable<String>{
 
     /**
      * array di oggetti String, uno per ciascun valore del dominio discreto.

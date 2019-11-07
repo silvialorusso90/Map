@@ -6,13 +6,14 @@ classe che modella un cluster
 import data.Data;
 import data.Tuple;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 
-class Cluster implements Iterable<Integer>, Comparable<Cluster> {
+class Cluster implements Iterable<Integer>, Comparable<Cluster>, Serializable {
 
     //Attributi
 
@@ -116,7 +117,7 @@ class Cluster implements Iterable<Integer>, Comparable<Cluster> {
         for(Integer i : clusteredData){
             str+="[";
             for(int j=0;j<data.getNumberOfExplanatoryAttributes();j++)
-                str += (j!=0 ? " " : "") + data.getAttributeValue(i, j);
+                str += (j!=0 ? " " : "") + data.getValue(i, j);
             str+="] dist="+getCentroid().getDistance(data.getItemSet(i))+"\n";
         }
         return str+"\nAvgDistance="+getCentroid().avgDistance(data, clusteredData)+"\n";

@@ -3,7 +3,9 @@ classe che rappresenta una coppia <Attributo discreto- valore discreto>
 (per esempio Outlook=”Sunny”
  */
 
-public class DiscreteItem extends Item {
+import java.io.Serializable;
+
+public class DiscreteItem extends Item implements Serializable {
 
     /**
      * Invoca il costruttore della classe madre

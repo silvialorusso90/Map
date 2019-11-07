@@ -2,6 +2,8 @@ package data;
 
 import java.io.Serializable;
 
+// classe che modella una coppia <Attributo continuo - valore numerico> (e.g., Temperature=30.5)
+
 public class ContinuousItem extends Item implements Serializable {
 
     //Metodi

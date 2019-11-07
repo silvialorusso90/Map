@@ -2,9 +2,10 @@ package data;/*
 classe che rappresenta una tupla come sequenza di coppie attributo-valore
  */
 
+import java.io.Serializable;
 import java.util.Set;
 
-public class Tuple {
+public class Tuple implements Serializable {
 
     //Attributi
 

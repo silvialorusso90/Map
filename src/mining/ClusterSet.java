@@ -3,6 +3,7 @@ package mining;
 import data.Data;
 import mining.Cluster;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -10,7 +11,7 @@ import java.util.TreeSet;
 /*
 classe che rappresenta un insieme di cluster (determinati da QT)
  */
-public class ClusterSet implements Iterable<Cluster>{
+public class ClusterSet implements Iterable<Cluster>, Serializable {
 
     //Attributi
 

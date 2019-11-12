@@ -1,11 +1,11 @@
 import data.Data;
 import keyboardinput.Keyboard;
-import mining.ClusteringRadiusException;
 import mining.QTMiner;
-import data.EmptyDatasetException;
 
+import data.EmptyDatasetException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import mining.ClusteringRadiusException;
 
 public class MainTest {
 
@@ -28,7 +28,7 @@ public class MainTest {
     }
 
     public static void main(String[] args) throws EmptyDatasetException {
-        MainTest main=new MainTest();
+        MainTest main = new MainTest();
 		do {
         int menuAnswer=main.menu();
         switch(menuAnswer) {
@@ -87,6 +87,7 @@ public class MainTest {
         System.out.print("Would you choose another option from the menu? (y/n) ");
         if(Character.toUpperCase(Keyboard.readChar())!='Y')
             break;
+            System.out.println();
     }
 		while(true);
 }

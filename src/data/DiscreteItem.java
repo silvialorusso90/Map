@@ -1,7 +1,8 @@
-package data;/*
+package data;
+/*
 classe che rappresenta una coppia <Attributo discreto- valore discreto>
 (per esempio Outlook=”Sunny”
- */
+*/
 
 import java.io.Serializable;
 

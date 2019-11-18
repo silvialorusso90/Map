@@ -1,11 +1,15 @@
 package database;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * Realizza l'accesso alla base di dati
  */
 public class DbAccess {
+
+    //membri attributi
 
     /**
      * contiene il nome della classe Driver
@@ -46,4 +50,44 @@ public class DbAccess {
      * gestisce una connessione
      */
     private Connection conn;
+
+    //membri metodi
+
+    /**
+     * impartisce al class loader l’ordine di caricare il driver mysql,
+     * inizializza la connessione riferita da conn.
+     * Il metodo solleva e propaga una eccezione di tipo DatabaseConnectionException in caso di
+     * fallimento nella connessione al database.
+     * @throws DatabaseConnectionException in caso di fallimento nella connessione al database
+     */
+    public void initConnection() throws DatabaseConnectionException{
+        try {
+            Class.forName(DRIVER_CLASS_NAME).newInstance();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            conn = DriverManager.getConnection(DBMS+"://" + SERVER + ":" + PORT + "/" + DATABASE, USER_ID, PASSWORD);
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new DatabaseConnectionException();
+        }
+    }
+
+    /**
+     * restituisce conn
+     * @return connessione conn
+     */
+    public Connection getConnection(){
+        return conn;
+    }
+
+    public void closeConnection()  {
+        try {
+            conn.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 }

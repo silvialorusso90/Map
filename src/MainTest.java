@@ -27,6 +27,16 @@ public class MainTest {
         return new QTMiner(fileName+".dmp");
     }
 
+    /**
+     * consente il test delle classi implementate, in particolare permette il caricamento e
+     * la stampa dei cluster da un file o la stampa dell'insieme di transazioni da una tabella
+     * della base di dati, poi permette di acquisire da tastiera il numero real radius che
+     * rappresenta il raggio dei cluster da scoprire. Permette, inoltre, di salvare i cluster
+     * in un file e permette di decidere di ripetere l'esecuzione di QT con valori di radius
+     * differenti
+     * @param args parametri del main
+     * @throws EmptyDatasetException se il dataset è vuoto
+     */
     public static void main(String[] args) throws EmptyDatasetException {
         MainTest main = new MainTest();
 		do {
@@ -45,7 +55,9 @@ public class MainTest {
                 }
                 break;
             case 2:
-                Data data = new Data();
+                System.out.println("\nInsert table name");
+                String table = Keyboard.readString();
+                Data data = new Data(table);
                 System.out.println(data);
                 char answer='y';
                 do {

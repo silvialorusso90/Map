@@ -11,10 +11,11 @@ public class DbAccess {
 
     //membri attributi
 
+
     /**
      * contiene il nome della classe Driver
      */
-    private String DRIVER_CLASS_NAME = "org.gjt.mm.mysql.Driver";
+    //private String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
 
     /**
      * contiene l'identificativo del Database Management System
@@ -61,13 +62,14 @@ public class DbAccess {
      * @throws DatabaseConnectionException in caso di fallimento nella connessione al database
      */
     public void initConnection() throws DatabaseConnectionException{
+        /*
         try {
-            Class.forName(DRIVER_CLASS_NAME).newInstance();
+            Class.forName(DRIVER_CLASS_NAME);
         }catch (Exception e){
             e.printStackTrace();
-        }
+        }*/
         try {
-            conn = DriverManager.getConnection(DBMS+"://" + SERVER + ":" + PORT + "/" + DATABASE, USER_ID, PASSWORD);
+            conn = DriverManager.getConnection(DBMS+"://" +SERVER + ":" + PORT + "/" + DATABASE, USER_ID, PASSWORD);
         }catch (SQLException e){
             e.printStackTrace();
             throw new DatabaseConnectionException();

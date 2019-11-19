@@ -1,7 +1,9 @@
 package data;
 
 import data.Attribute;
+import database.*;
 
+import java.sql.SQLException;
 import java.util.*;
 
 //modella l'insieme di transazioni (tuple)
@@ -10,7 +12,14 @@ public class Data {
     /**
      * matrice nXm di tipo Object dove ogni riga modella una transazioni
      */
+    /*
     private Object data[][];
+     */
+
+    /**
+     * lista di oggetti di tipo Example in cui ogni oggetto modella una transazioone
+     */
+    private List<Example> data=new ArrayList<Example>();
 
     /**
      * cardinalità dell’insieme di transazioni (numero di righe in data)
@@ -28,6 +37,7 @@ public class Data {
      *   data.DiscreteAttribute, uno per ciascun attributo
      * - Inizializza numberOfExamples
      */
+    /*
     public Data()throws EmptyDatasetException{
 
         explanatorySet = new LinkedList<Attribute>();
@@ -143,6 +153,60 @@ public class Data {
         data[13][4]="no";
 
     }
+     */
+
+    /**
+     * si occupa di caricare i dati di addestramento da una tabella della base di dati.
+     * @param table nome della tabella
+     */
+    public Data(String table) {
+        DbAccess db = new DbAccess();
+        try {
+            db.initConnection();
+            TableData td = new TableData(db);
+            try {
+                //data
+                data = td.getDistinctTransazioni(table);
+
+                //explanatoryset
+                explanatorySet = new LinkedList<Attribute>();
+                TableSchema ts = new TableSchema(db, table);
+                int i = 0;
+                for (TableSchema.Column c : ts){
+                    if (c.isNumber()){
+                        try {
+                            double min = (float)td.getAggregateColumnValue(table, c, QUERY_TYPE.MIN);
+                            double max = (float)td.getAggregateColumnValue(table, c, QUERY_TYPE.MAX);
+                            explanatorySet.add(new ContinuousAttribute(c.getColumnName(), i, min, max));
+                        }catch (NoValueException e){
+                            e.getMessage();
+                        }
+                    }
+                    else {
+                        Set<String> s = new TreeSet<>();
+                        Set<Object> dv = td.getDistinctColumnValues(table, c);
+                        for (Object o : dv){
+                            s.add((String) o);
+                        }
+                        explanatorySet.add(new DiscreteAttribute(c.getColumnName(), i, s));
+                    }
+                    i++;
+                }
+                //numberforexample
+                numberOfExamples = data.size();
+
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+            catch (EmptySetException e){
+                e.getMessage();
+            }
+
+        }catch (DatabaseConnectionException e){
+            e.getMessage();
+        }
+
+    }
 
     /**
      * restituisce l'insieme di transazioni
@@ -177,7 +241,7 @@ public class Data {
      */
     public Object getValue(int exampleIndex, int attributeIndex){
         //TO DO
-        return data[exampleIndex][attributeIndex];
+        return data.get(exampleIndex).get(attributeIndex);
     }
 
     /**
@@ -185,18 +249,22 @@ public class Data {
      * le transazioni memorizzate in data, opportunamente enumerate
      * @return stringa che modella lo stato dell'oggetto
      */
-    public String toString(){
-        String s="";
+    @Override
+    public String toString() {
+        String s = "";
         int n = 1;
-        for(Attribute i : explanatorySet)
-            s += ((n++)!=1 ? ", " : "") + i;
-        for(int i=0; i<data.length; i++)
-        {
-            s += "\n" + (i+1)+": ";
-            for(int j=0; j<data[i].length; j++)
-                s += (j!=0 ? ", " : "") + data[i][j];
+        for (Attribute i :explanatorySet){
+            s += ((n++) != 1 ? ", " : "") + i;
         }
-        return s+"\n";
+        n = 1;
+        for (Example i : data){
+            s += "\n" + (n++) + ": ";
+            int m = 0;
+            for (Object j : i){
+                s += (m++ >= 1 ? ", " : "") + j;
+            }
+        }
+        return s + "\n";
     }
 
     /**
@@ -209,9 +277,9 @@ public class Data {
         Tuple tuple=new Tuple(explanatorySet.size());
         for(Attribute i : explanatorySet){
             if(i instanceof DiscreteAttribute)
-                tuple.add(new DiscreteItem((DiscreteAttribute)i,(String)data[index][i.getIndex()]),i.getIndex());
+                tuple.add(new DiscreteItem((DiscreteAttribute)i,(String)data.get(index).get(i.getIndex())),i.getIndex());
             else
-                tuple.add(new ContinuousItem((ContinuousAttribute)i,(Double)data[index][i.getIndex()]),i.getIndex());
+                tuple.add(new ContinuousItem((ContinuousAttribute)i,(Double)data.get(index).get(i.getIndex())),i.getIndex());
         }
         return tuple;
     }

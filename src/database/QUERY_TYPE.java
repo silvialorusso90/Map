@@ -1,4 +1,4 @@
 package database;
 
-public class QUERY_TYPE {
+public enum QUERY_TYPE { MIN, MAX
 }
